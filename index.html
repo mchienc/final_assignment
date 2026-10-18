@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dân Trí Clone - Website Tin Tức</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Font Awesome cho icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- HEADER TOP -->
+  <header class="top-header">
+    <div class="container header-inner">
+      <a href="#" class="logo" id="logoLink">DÂN TRÍ<span>.CLONE</span></a>
+      <div class="header-actions">
+        <span id="currentDate" class="current-date"></span>
+        <button class="btn-crawler-nav" id="openCrawlerBtn">
+          <i class="fa-solid fa-spider"></i> Crawler Tin Tức
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION BAR -->
+  <nav class="navbar">
+    <div class="container">
+      <ul class="nav-list" id="navMenu">
+        <!-- Render động từ LocalStorage / JSON -->
+      </ul>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="container main-content">
+    
+    <!-- TIÊU ĐỀ CHUYÊN MỤC & MENU CON -->
+    <div id="categoryHeader" class="category-header">
+      <h1 id="currentCategoryTitle">Mới nhất</h1>
+      <div id="subCategoryList" class="sub-category-list"></div>
+    </div>
+
+    <!-- VIEW 1: TRANG DANH SÁCH BÀI VIẾT THEO CHUYÊN MỤC -->
+    <section id="listView" class="view-section active">
+      <!-- Top Section: 1 bài lớn bên trái + 2 bài nhỏ bên phải -->
+      <div id="topSection" class="top-section"></div>
+
+      <!-- Danh sách bài viết còn lại xếp dọc -->
+      <div id="remainingList" class="remaining-list"></div>
+    </section>
+
+    <!-- VIEW 2: TRANG CHI TIẾT BÀI VIẾT -->
+    <section id="detailView" class="view-section">
+      <button class="btn-back" id="backToListBtn">
+        <i class="fa-solid fa-arrow-left"></i> Quay lại danh sách
+      </button>
+      <article id="articleDetail" class="article-detail"></article>
+    </section>
+
+    <!-- VIEW 3: TRANG CRAWLER TIN TỨC -->
+    <section id="crawlerView" class="view-section">
+      <div class="crawler-box">
+        <h2><i class="fa-solid fa-cloud-arrow-down"></i> Công cụ Crawler Bài Viết Tin Tức</h2>
+        <p class="crawler-desc">
+          Nhập đường dẫn (URL) bài viết từ <strong>dantri.com.vn</strong> để trích xuất dữ liệu tự động, chuẩn hóa thành JSON và lưu trực tiếp vào <code>LocalStorage</code>.
+        </p>
+
+        <div class="crawler-form">
+          <input 
+            type="url" 
+            id="crawlUrlInput" 
+            placeholder="Ví dụ: https://dantri.com.vn/bat-dong-san/ha-noi-tinh-co-che-boi-thuong-dat-dac-biet-cho-7-du-an-duong-sat-20260928122246655.htm"
+            value="https://dantri.com.vn/bat-dong-san/ha-noi-tinh-co-che-boi-thuong-dat-dac-biet-cho-7-du-an-duong-sat-20260928122246655.htm"
+          />
+          <button id="runCrawlerBtn" class="btn-primary">
+            <i class="fa-solid fa-bolt"></i> Crawl & Lưu LocalStorage
+          </button>
+        </div>
+
+        <div id="crawlerStatus" class="crawler-status"></div>
+
+        <div class="crawler-result-wrapper">
+          <h3>Kết quả JSON chuẩn hóa:</h3>
+          <pre id="crawlerJsonOutput">{ Chưa có dữ liệu }</pre>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <!-- Cột 1: Thông tin website -->
+      <div class="footer-col">
+        <h3 class="footer-logo">DÂN TRÍ<span>.CLONE</span></h3>
+        <p class="footer-about">
+          Website tin tức tổng hợp cập nhật liên tục các sự kiện Thời sự, Thế giới, Kinh doanh, Bất động sản, Pháp luật, Đời sống nhanh chóng và chính xác nhất.
+        </p>
+        <div class="social-links">
+          <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://youtube.com" target="_blank" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://tiktok.com" target="_blank" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+      </div>
+
+      <!-- Cột 2: Liên kết nhanh -->
+      <div class="footer-col">
+        <h4>Liên kết nhanh</h4>
+        <ul class="footer-links">
+          <li><a href="#" data-nav="home">Trang chủ</a></li>
+          <li><a href="#" data-nav="latest">Tin mới nhất</a></li>
+          <li><a href="#" id="footerCrawlerLink">Công cụ Crawler</a></li>
+          <li><a href="#contact">Liên hệ tòa soạn</a></li>
+        </ul>
+      </div>
+
+      <!-- Cột 3: Danh sách chuyên mục -->
+      <div class="footer-col">
+        <h4>Chuyên mục tin tức</h4>
+        <ul class="footer-links" id="footerCategories">
+          <!-- Render động từ danh sách chuyên mục -->
+        </ul>
+      </div>
+
+      <!-- Cột 4: Thông tin liên hệ -->
+      <div class="footer-col" id="contact">
+        <h4>Thông tin liên hệ</h4>
+        <ul class="footer-contact">
+          <li><i class="fa-solid fa-location-dot"></i> Địa chỉ: Số 2 Giảng Võ, Quận Đống Đa, Hà Nội</li>
+          <li><i class="fa-solid fa-envelope"></i> Email: toasoan@dantri-clone.vn</li>
+          <li><i class="fa-solid fa-phone"></i> Điện thoại: 024-3736-6491</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 Bản quyền thuộc về Dự Án Bài Tập Lớn Web Tin Tức. Bảo lưu mọi quyền.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="data.js"></script>
+  <script src="crawler.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
